@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <player>
+    <name>Nyxton</name>
+    <credits>10000</credits>
+    <skillpoints>0</skillpoints>
+    <time>0</time>
+  </player>
+  <skills>
+    <list>
+      <Skill>
+        <name>Ship Management</name>
+        <id>ship_management</id>
+        <currentSP>0</currentSP>
+        <multiplier>10</multiplier>
+      </Skill>
+      <Skill>
+        <name>Adv. Ship Management</name>
+        <id>adv_ship_management</id>
+        <currentSP>0</currentSP>
+        <multiplier>100</multiplier>
+      </Skill>
+      <Skill>
+        <name>Hyperdrive Control</name>
+        <id>hyperdrive_control</id>
+        <currentSP>0</currentSP>
+        <multiplier>10</multiplier>
+      </Skill>
+      <Skill>
+        <name>Power Management</name>
+        <id>power_management</id>
+        <currentSP>0</currentSP>
+        <multiplier>10</multiplier>
+      </Skill>
+      <Skill>
+        <name>Railgun Control</name>
+        <id>railgun_control</id>
+        <currentSP>0</currentSP>
+        <multiplier>100</multiplier>
+      </Skill>
+    </list>
+  </skills>
+  <standings />
+  <settings>
+    <sfxVolume>0.5</sfxVolume>
+    <musicVolume>0.5</musicVolume>
+    <dialogVolume>0.5</dialogVolume>
+  </settings>
+</GameData>
