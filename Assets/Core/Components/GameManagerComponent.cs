@@ -9,6 +9,8 @@ namespace Core
 {
     public class GameManagerComponent : MonoBehaviour
     {
+        
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -59,7 +61,7 @@ namespace Core
         #endregion
 
         #region IO Wrapper
-        public static void Create(GameData defaultgd, string name, Sexes sex)
+        public static void Create(GameData defaultgd, string name, int sex)
         {
             data = GameData.Create(defaultgd, name, sex);
             Load(name);
@@ -75,6 +77,4 @@ namespace Core
         }
         #endregion
     }
-
-    
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <player>
-    <name>Nyxton</name>
-    <credits>10000</credits>
+    <name>EidolonRising</name>
+    <sex>1</sex>
+    <credits>0</credits>
     <skillpoints>0</skillpoints>
     <time>0</time>
   </player>
@@ -19,6 +20,12 @@
         <id>adv_ship_management</id>
         <currentSP>0</currentSP>
         <multiplier>100</multiplier>
+      </Skill>
+      <Skill>
+        <name>Capital Ship Management</name>
+        <id>cap_ship_management</id>
+        <currentSP>0</currentSP>
+        <multiplier>1000</multiplier>
       </Skill>
       <Skill>
         <name>Hyperdrive Control</name>
@@ -42,8 +49,8 @@
   </skills>
   <standings />
   <settings>
-    <sfxVolume>0.5</sfxVolume>
-    <musicVolume>0.5</musicVolume>
-    <dialogVolume>0.5</dialogVolume>
+    <sfxVolume>0</sfxVolume>
+    <musicVolume>0</musicVolume>
+    <dialogVolume>0</dialogVolume>
   </settings>
 </GameData>

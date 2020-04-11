@@ -29,7 +29,7 @@ public struct GameData
     #endregion
 
     #region Public IO methods
-    public static GameData Create(GameData defaultgd, string name, Sexes sex)
+    public static GameData Create(GameData defaultgd, string name, int sex)
     {
         GameData gd = defaultgd;
         gd.player.name = name;
@@ -53,7 +53,7 @@ public struct GameData
     #region Public gameplay methods
     public void AddCredits(int amount)
     {
-        if(amount >= 0)
+        if (amount >= 0)
         {
             player.credits = (int)Mathf.Clamp(player.credits + amount, 0, Constants.maxCredits);
         }
@@ -82,7 +82,7 @@ public struct GameData
 
     public void AddSkillpoints(int amount)
     {
-        if(amount >= 0)
+        if (amount >= 0)
         {
             player.skillpoints = (int)Mathf.Clamp(player.skillpoints + amount, 0, Constants.maxSkillpoints);
         }
@@ -93,9 +93,9 @@ public struct GameData
         if (amount <= 0)
         {
             //Does the player have the skill?
-            for(int i = 0; i < skills.list.Length; i++)
+            for (int i = 0; i < skills.list.Length; i++)
             {
-                if(skills.list[i].id == skillID)
+                if (skills.list[i].id == skillID)
                 {
                     if (player.skillpoints > amount)
                     {
@@ -112,7 +112,7 @@ public struct GameData
                 }
             }
 
-            
+
         }
         return b;
     }
@@ -125,7 +125,7 @@ public struct GameData
         TextWriter tw = new StreamWriter(gd.player.name + ".dat");
         xs.Serialize(tw, gd);
         tw.Close();
-        Notify.Log(Notify.Intent.Success,"GameData serialized for " + gd.player.name + ".dat");
+        Notify.Log(Notify.Intent.Success, "GameData serialized for " + gd.player.name + ".dat");
     }
     private static GameData DESERIALIZE(string name)
     {
@@ -154,20 +154,22 @@ public struct GameData
         return gd;
     }
     #endregion
+
+    #region static data
+    public static readonly Dictionary<int, string> Sexes = new Dictionary<int, string> {{0, "Male"}, {1, "Female"}};
+    #endregion
 }
 
 [System.Serializable]
 public struct PlayerData
 {
-    
-
     public string name;
-    public Sexes sex;
+    public int sex;
     public long credits;
     public long skillpoints;
     public int time;
     //Constructors
-    public PlayerData(string n, long c, long s, int t, Sexes x)
+    public PlayerData(string n, long c, long s, int t, int x)
     {
         name = n;
         sex = x;
@@ -233,11 +235,4 @@ public struct Skill
         currentSP = c;
         multiplier = m;
     }
-}
-
-[System.Serializable]
-public enum Sexes
-{
-    male,
-    female
 }
