@@ -6,6 +6,7 @@ using Core;
 using Core.Notify;
 using System;
 
+/*
 public class MainMenuController : MonoBehaviour
 {
     public DefaultGameData[] defaultCareers;
@@ -75,28 +76,28 @@ public class MainMenuController : MonoBehaviour
     //These methods are only called by the Main Menu buttons.
     public void SetMenuMain()
     {
-        Notify.Log(Notify.Intent.Error, "MainMenu");
+        Notify.Log("MainMenu");
         menuState = MenuStates.MainMenu;
     }
     public void SetMenuResume()
     {
         menuState = MenuStates.ResumeGame;
-        Notify.Log(Notify.Intent.Error, "Resume, not implemented");
+        Notify.LogError("Resume, not implemented");
     }
     public void SetMenuNewGame()
     {
         menuState = MenuStates.NewGame;
-        Notify.Log(Notify.Intent.Error, "New game");
+        Notify.Log("New game");
     }
     public void SetMenuLoadGame()
     {
         menuState = MenuStates.LoadGame;
-        Notify.Log(Notify.Intent.Error, "Load, not implemented");
+        Notify.LogError("Load, not implemented");
     }
     public void SetMenuSettings()
     {
         menuState = MenuStates.Settings;
-        Notify.Log(Notify.Intent.Error, "Settings, not implemented");
+        Notify.LogError("Settings, not implemented");
     }
     public void SetMenuExitConfirm()
     {
@@ -104,12 +105,12 @@ public class MainMenuController : MonoBehaviour
     }
     public void CloseApplication()
     {
-        Notify.Log(Notify.Intent.Success, "Closing Application");
+        Notify.Log("Closing Application");
         Application.Quit();
     }
     public void SetMenuConfirmNewGame()
     {
-        Notify.Log(Notify.Intent.Error, "Confirm new game");
+        Notify.Log("Confirm new game");
         menuState = MenuStates.ConfirmNewGame;
     }
     #endregion
@@ -117,7 +118,7 @@ public class MainMenuController : MonoBehaviour
     #region NewGame methods
     public void StartNewGame()
     {
-        Notify.Log(Notify.Intent.Error, "START NEW GAME");
+        Notify.LogError("START NEW GAME");
         GameData newData = defaultCareers[(int)career].gameData;
         string name = CharacterNameField.text;
         int sex = CharacterSexField.value;
@@ -127,17 +128,18 @@ public class MainMenuController : MonoBehaviour
     public void SetNewGameCareerStrategist()
     {
         career = Careers.strategist;
-        Notify.Log(Notify.Intent.Success, "Career changed to Strategist!");
+        Notify.LogSuccess("Career changed to Strategist!");
     }
     public void SetNewGameCareerIndustrialist()
     {
         career = Careers.industrialist;
-        Notify.Log(Notify.Intent.Success, "Career changed to Industrialist!");
+        Notify.LogSuccess("Career changed to Industrialist!");
     }
     public void SetNewGameCareerColonist()
     {
         career = Careers.colonist;
-        Notify.Log(Notify.Intent.Success, "Career changed to Colonist!");
+        Notify.LogSuccess("Career changed to Colonist!");
     }
     #endregion
 }
+*/

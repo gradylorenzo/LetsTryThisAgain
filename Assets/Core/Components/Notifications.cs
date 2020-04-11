@@ -38,7 +38,7 @@ namespace Core.Notify
         public void Awake()
         {
             Notify.ENotifyLog += ENotifyLog;
-            Notify.Log(Notify.Intent.Success, "Notify.Log Started!");
+            Notify.Success("Notify.Log Started!");
 
             specs = GetSystemInfo();
             specsBox.text = specs;

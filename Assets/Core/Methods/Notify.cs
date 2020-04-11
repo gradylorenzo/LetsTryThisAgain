@@ -15,33 +15,6 @@ namespace Core.Notify
         }
         private static bool useDebugLog = false;
 
-        public static void Log(Intent intent, string text)
-        {
-            if (useDebugLog)
-            {
-                switch (intent)
-                {
-                    case Intent.Success:
-                        Debug.Log(text);
-                        break;
-
-                    case Intent.Message:
-                        Debug.Log(text);
-                        break;
-
-                    case Intent.Warning:
-                        Debug.LogWarning(text);
-                        break;
-
-                    case Intent.Error:
-                        Debug.LogError(text);
-                        break;
-                }
-            }
-
-            ENotifyLog(intent, text);
-        }
-
         public static void Log(string text)
         {
             if (useDebugLog)
@@ -50,6 +23,36 @@ namespace Core.Notify
             }
 
             ENotifyLog(Intent.Message, text);
+        }
+
+        public static void Success(string text)
+        {
+            if (useDebugLog)
+            {
+                Debug.Log(text);
+            }
+
+            ENotifyLog(Intent.Success, text);
+        }
+
+        public static void Warning(string text)
+        {
+            if (useDebugLog)
+            {
+                Debug.Log(text);
+            }
+
+            ENotifyLog(Intent.Warning, text);
+        }
+
+        public static void Error(string text)
+        {
+            if (useDebugLog)
+            {
+                Debug.Log(text);
+            }
+
+            ENotifyLog(Intent.Error, text);
         }
 
         public delegate void e_NotifyLog(Intent intent, string text);
