@@ -971,26 +971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0037d6aa6a18b4844b4c22f9f9d3e40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCareers:
-  - {fileID: 11400000, guid: 5b92fded155a1ee4bbc16a943ed29ef5, type: 2}
-  - {fileID: 11400000, guid: 13905a05db69a4f4da896fdd63fdcda0, type: 2}
-  - {fileID: 11400000, guid: 5ff188ef0e1f95648a7fba99b907b00c, type: 2}
-  ExitConfirm: {fileID: 685744766}
-  NewGamePanel: {fileID: 192372538}
-  CareerFlavorTexts:
-  - 
-  - 
-  - 
-  CareerDefaultGameData:
-  - {fileID: 11400000, guid: 5b92fded155a1ee4bbc16a943ed29ef5, type: 2}
-  - {fileID: 11400000, guid: 13905a05db69a4f4da896fdd63fdcda0, type: 2}
-  - {fileID: 11400000, guid: 5ff188ef0e1f95648a7fba99b907b00c, type: 2}
-  CharacterNameField: {fileID: 2127048462}
-  CharacterSexField: {fileID: 717039590}
-  CareerFlavorText: {fileID: 141568331}
-  StartButton: {fileID: 661302446}
-  ConfirmNewGamePanel: {fileID: 1577714424}
-  ConfirmNewGamePanelCharacterDescription: {fileID: 1294927373}
 --- !u!4 &337020005
 Transform:
   m_ObjectHideFlags: 0

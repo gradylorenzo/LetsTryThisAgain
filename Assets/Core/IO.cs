@@ -12,26 +12,26 @@ namespace Core.IO
     //Don't fucking touch this shit.
     public static class IO
     {
-        public static void Serialize(Data.GameData gd)
+        public static void Serialize(GameData gd)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(Data.GameData));
+            XmlSerializer xs = new XmlSerializer(typeof(GameData));
             TextWriter tw = new StreamWriter(Constants.savesLocation + gd.playerData.name + ".dat");
             xs.Serialize(tw, gd);
             tw.Close();
             Notify.Notify.Success("Successfuly saved GameData to " + Constants.savesLocation + gd.playerData.name + ".dat");
         }
 
-        public static Data.GameData Deserialize(string name)
+        public static GameData Deserialize(string name)
         {
-            Data.GameData newGD = new Data.GameData();
-            Data.GameData tmp = new Data.GameData();
-            XmlSerializer xs = new XmlSerializer(typeof(Data.GameData));
+            GameData newGD = new GameData();
+            GameData tmp = new GameData();
+            XmlSerializer xs = new XmlSerializer(typeof(GameData));
             TextReader tr = new StreamReader(Constants.savesLocation + name + "dat");
 
 
             try
             {
-                tmp = (Data.GameData)xs.Deserialize(tr);
+                tmp = (GameData)xs.Deserialize(tr);
             }
             catch (ApplicationException e)
             {

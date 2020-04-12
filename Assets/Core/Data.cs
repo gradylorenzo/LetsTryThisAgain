@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.IO;
@@ -71,6 +72,47 @@ namespace Core.Data
                 skillsData.unallocatedPoints = Mathf.Clamp(skillsData.unallocatedPoints - a, 0, Constants.maxSkillpoints);
             }
         }
+        internal void InitializeSkills(PlayerSkill[] defaults)
+        {
+            //Load the Skills Library into the player's skillset.
+            List<PlayerSkill> tempSkills = new List<PlayerSkill>();
+            foreach(KeyValuePair<string, Libraries.Skill> s in Libraries.SkillLibrary)
+            {
+                tempSkills.Add(new PlayerSkill(s.Key, 0));
+            }
+
+            //Load PlayerSkill[] defaults to set the player up with their first skills.
+            foreach(PlayerSkill s in defaults)
+            {
+                int i = -1;
+                for(int t = 0; t < tempSkills.Count; t++)
+                {
+                    if(tempSkills[t].id == s.id)
+                    {
+                        i = t;
+                    }
+                }
+                if (i >= 0)
+                {
+                    tempSkills[i] = new PlayerSkill(tempSkills[i].id, s.points);
+                }
+                else
+                {
+                    Notify.Notify.Error("GameData.InitializeSkills() error, check Console");
+                    Debug.Log("GameData.InitializeSkills() could not find a skill with the ID of " + s.id + ", did you mispell the ID in GameData.DefaultSkills ? ");
+                }
+            }
+
+            //Print the results to the screen
+            if (true)
+            {
+                foreach(PlayerSkill s in tempSkills)
+                {
+                    string str = Libraries.SkillLibrary[s.id].name + " : " + s.points;
+                    Notify.Notify.Success(str);
+                }
+            }
+        }
         #endregion
 
         #region IO wrapper
@@ -111,7 +153,6 @@ namespace Core.Data
     {
         public int unallocatedPoints;
         public PlayerSkill[] playerSkills;
-
         public int GetSkillIndex (string id)
         {
             int i = -1;
@@ -161,5 +202,30 @@ namespace Core.Data
                 return t;
             }
         }
+
+        public PlayerSkill(string i, int p)
+        {
+            id = i;
+            points = p;
+        }
+    }
+
+    public static class DefaultSkills
+    {
+        public static PlayerSkill[] strategistSkills = new PlayerSkill[]
+        {
+            new PlayerSkill("ship_management", 10),
+            new PlayerSkill("combat_ships", 10),
+        };
+        public static PlayerSkill[] industrialistSkills = new PlayerSkill[]
+        {
+            new PlayerSkill("ship_management", 10),
+            new PlayerSkill("mining_ships", 10),
+        };
+        public static PlayerSkill[] capitalistSkills = new PlayerSkill[]
+        {
+            new PlayerSkill("ship_management", 10),
+            new PlayerSkill("transport_ships", 10),
+        };
     }
 }

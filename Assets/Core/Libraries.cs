@@ -29,7 +29,7 @@ namespace Core.Data
         /// <summary>
         /// Skills library contains readonly data for all available skills.
         /// </summary>
-        public static readonly Dictionary<string, Skill> Skills = new Dictionary<string, Skill>
+        public static readonly Dictionary<string, Skill> SkillLibrary = new Dictionary<string, Skill>
         {
             {"ship_management", new Skill("Ship Management", 10)},
             {"combat_ships", new Skill("Combat Ships", 10)},
@@ -45,9 +45,9 @@ namespace Core.Data
         public static string GetSkillName(string id)
         {
             string n = null;
-            if (Skills.ContainsKey(id))
+            if (SkillLibrary.ContainsKey(id))
             {
-                n = Skills[id].name;
+                n = SkillLibrary[id].name;
             }
             return n;
         }
@@ -60,9 +60,9 @@ namespace Core.Data
         public static int GetSkillMultiplier(string id)
         {
             int m = -1;
-            if (Skills.ContainsKey(id))
+            if (SkillLibrary.ContainsKey(id))
             {
-                m = Skills[id].multiplier;
+                m = SkillLibrary[id].multiplier;
             }
             return m;
         }
