@@ -23,7 +23,7 @@ namespace Core.Notify
             string gpuMem;
             string os;
             string res;
-            string messageToPlayer = "Main Menu is still being built out,\nnot all functionality is ready.";
+            string messageToPlayer = "Main Menu is still being built out, not all functionality is ready. Currently only New Game works. This can be verified by checking the saves folder next to .exe";
 
             cpu = "CPU Type: " + SystemInfo.processorType + "\n";
             cpuSpeed = "CPU Speed: " + SystemInfo.processorFrequency.ToString() + " MHz\n";

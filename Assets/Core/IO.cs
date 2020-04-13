@@ -12,13 +12,38 @@ namespace Core.IO
     //Don't fucking touch this shit.
     public static class IO
     {
+        public static bool SaveExists(string name)
+        {
+            if (Directory.Exists(Constants.savesLocation))
+            {
+                if(File.Exists(Constants.savesLocation + "/" + name + ".dat"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static void Serialize(GameData gd)
         {
+            //Make sure Saves directory exists. If it does not, create it.
+            if (!Directory.Exists(Constants.savesLocation))
+            {
+                Directory.CreateDirectory(Constants.savesLocation);
+            }
+
             XmlSerializer xs = new XmlSerializer(typeof(GameData));
-            TextWriter tw = new StreamWriter(Constants.savesLocation + gd.playerData.name + ".dat");
+            TextWriter tw = new StreamWriter(Constants.savesLocation + "/" + gd.playerData.name + ".dat");
             xs.Serialize(tw, gd);
             tw.Close();
-            Notify.Notify.Success("Successfuly saved GameData to " + Constants.savesLocation + gd.playerData.name + ".dat");
+            Notify.Notify.Success("Successfuly saved GameData to " + Constants.savesLocation + "/" + gd.playerData.name + ".dat");
         }
 
         public static GameData Deserialize(string name)
@@ -26,9 +51,7 @@ namespace Core.IO
             GameData newGD = new GameData();
             GameData tmp = new GameData();
             XmlSerializer xs = new XmlSerializer(typeof(GameData));
-            TextReader tr = new StreamReader(Constants.savesLocation + name + "dat");
-
-
+            TextReader tr = new StreamReader(Constants.savesLocation + "/" + name + "dat");
             try
             {
                 tmp = (GameData)xs.Deserialize(tr);

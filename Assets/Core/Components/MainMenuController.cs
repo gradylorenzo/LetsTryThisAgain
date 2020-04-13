@@ -6,11 +6,8 @@ using Core;
 using Core.Notify;
 using System;
 
-/*
 public class MainMenuController : MonoBehaviour
 {
-    public DefaultGameData[] defaultCareers;
-
     [System.Serializable]
     private enum MenuStates
     {
@@ -29,7 +26,12 @@ public class MainMenuController : MonoBehaviour
     public GameObject NewGamePanel;
     [Header("New Game")]
     public string[] CareerFlavorTexts;
-    public DefaultGameData[] CareerDefaultGameData;
+    public string[] Sexes = new string[]
+    {
+        "Male",
+        "Female",
+        "Other"
+    };
     private enum Careers
     {
         strategist = 0,
@@ -40,7 +42,12 @@ public class MainMenuController : MonoBehaviour
     public Dropdown CharacterSexField;
     public Text CareerFlavorText;
     public GameObject StartButton;
+    public GameObject SaveExistsWarning;
+
     private Careers career;
+    private string currentName = "";
+    private string lastName = "";
+    private bool saveExists = false;
     #endregion
 
     #region ConfirmNewGamePanel elements
@@ -58,18 +65,26 @@ public class MainMenuController : MonoBehaviour
     {
         NewGamePanel.SetActive(menuState == MenuStates.NewGame || menuState == MenuStates.ConfirmNewGame);
         ConfirmNewGamePanel.SetActive(menuState == MenuStates.ConfirmNewGame);
-        ConfirmNewGamePanelCharacterDescription.text = (CharacterNameField.text + ", " + GameData.Sexes[CharacterSexField.value] + " " + career.ToString()).ToUpper();
+        ConfirmNewGamePanelCharacterDescription.text = (CharacterNameField.text + ", " + Sexes[CharacterSexField.value] + " " + career.ToString()).ToUpper();
         ExitConfirm.SetActive(menuState == MenuStates.ExitConfirm);
 
         if(menuState == MenuStates.NewGame)
         {
             NewGamePanelUpdate();
         }
+
+        currentName = CharacterNameField.text;
+        if(currentName != lastName)
+        {
+            saveExists = GameManager.SaveAlreadyExists(currentName);
+            SaveExistsWarning.SetActive(saveExists);
+            lastName = currentName;
+        }
     }
 
     private void NewGamePanelUpdate()
     {
-        StartButton.SetActive(CharacterNameField.text != null && CharacterNameField.text != "" && menuState != MenuStates.ConfirmNewGame);
+        StartButton.SetActive(CharacterNameField.text != null && CharacterNameField.text != "" && menuState != MenuStates.ConfirmNewGame && !saveExists);
     }
 
     #region SetMenu methods
@@ -82,7 +97,7 @@ public class MainMenuController : MonoBehaviour
     public void SetMenuResume()
     {
         menuState = MenuStates.ResumeGame;
-        Notify.LogError("Resume, not implemented");
+        Notify.Error("Resume, not implemented");
     }
     public void SetMenuNewGame()
     {
@@ -92,12 +107,12 @@ public class MainMenuController : MonoBehaviour
     public void SetMenuLoadGame()
     {
         menuState = MenuStates.LoadGame;
-        Notify.LogError("Load, not implemented");
+        Notify.Error("Load, not implemented");
     }
     public void SetMenuSettings()
     {
         menuState = MenuStates.Settings;
-        Notify.LogError("Settings, not implemented");
+        Notify.Error("Settings, not implemented");
     }
     public void SetMenuExitConfirm()
     {
@@ -118,28 +133,26 @@ public class MainMenuController : MonoBehaviour
     #region NewGame methods
     public void StartNewGame()
     {
-        Notify.LogError("START NEW GAME");
-        GameData newData = defaultCareers[(int)career].gameData;
+        Notify.Error("START NEW GAME");
         string name = CharacterNameField.text;
         int sex = CharacterSexField.value;
-        GameManager.Create(newData, name, sex);
+        GameManager.NewGame(name, sex, (int)career);
     }
 
     public void SetNewGameCareerStrategist()
     {
         career = Careers.strategist;
-        Notify.LogSuccess("Career changed to Strategist!");
+        Notify.Success("Career changed to Strategist!");
     }
     public void SetNewGameCareerIndustrialist()
     {
         career = Careers.industrialist;
-        Notify.LogSuccess("Career changed to Industrialist!");
+        Notify.Success("Career changed to Industrialist!");
     }
     public void SetNewGameCareerColonist()
     {
         career = Careers.colonist;
-        Notify.LogSuccess("Career changed to Colonist!");
+        Notify.Success("Career changed to Colonist!");
     }
     #endregion
 }
-*/

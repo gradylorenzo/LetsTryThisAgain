@@ -14,6 +14,30 @@ namespace Core.Data
         public SkillsData skillsData;
         #endregion
 
+        #region Public methods
+        /// <summary>
+        /// Creates a new save file.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sex"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static GameData StartNewGame(string name, int sex, int def)
+        {
+            GameData newGD = new GameData();
+
+            newGD.playerData.name = name;
+            newGD.playerData.sex = sex;
+            newGD.playerData.credits = 0;
+            newGD.playerData.time = 0;
+
+            newGD.skillsData.playerSkills = InitializeSkills(Defaults.Skills[def]);
+            Save(newGD);
+            newGD = Load(name);
+            return newGD;
+        }
+        #endregion
+
         #region Internal methods
         #region PlayerData wrapper
         /// <summary>
@@ -55,10 +79,20 @@ namespace Core.Data
         #endregion
 
         #region SkillsData wrapper
+        /// <summary>
+        /// Adds a specified number of points to the player's unallocated skillpoint balance.
+        /// </summary>
+        /// <param name="amount"></param>
         internal void AddSkillpoints(int amount)
         {
             skillsData.unallocatedPoints = Mathf.Clamp(skillsData.unallocatedPoints + amount, 0, Constants.maxSkillpoints);
         }
+
+        /// <summary>
+        /// Moves a specified number of points from the player's unallocated skillpoint balance to the skill with the speficied ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="amount"></param>
         internal void ApplySkillpoints(string id, int amount)
         {
             int i = skillsData.GetSkillIndex(id);
@@ -72,7 +106,14 @@ namespace Core.Data
                 skillsData.unallocatedPoints = Mathf.Clamp(skillsData.unallocatedPoints - a, 0, Constants.maxSkillpoints);
             }
         }
-        internal void InitializeSkills(PlayerSkill[] defaults)
+
+        /// <summary>
+        /// Returns an array of skills containing all skills in Libraries.SkillLibrary, then adds SP to specific skills based
+        /// defaults provided in Data.DefaultSkills.
+        /// </summary>
+        /// <param name="defaults"></param>
+        /// <returns></returns>
+        private static PlayerSkill[] InitializeSkills(PlayerSkill[] defaults)
         {
             //Load the Skills Library into the player's skillset.
             List<PlayerSkill> tempSkills = new List<PlayerSkill>();
@@ -112,18 +153,38 @@ namespace Core.Data
                     Notify.Notify.Success(str);
                 }
             }
+
+            return tempSkills.ToArray();
         }
         #endregion
 
         #region IO wrapper
+        /// <summary>
+        /// Returns true if a save with the specified name already exists
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal static bool SaveExists(string name)
+        {
+            return IO.IO.SaveExists(name);
+        }
+
+        /// <summary>
+        /// Saves the game to a file under the Saves directory with the specified name
+        /// </summary>
+        /// <param name="gd"></param>
         internal static void Save(GameData gd)
         {
             IO.IO.Serialize(gd);
         }
 
-        internal static void Load(string name)
+        /// <summary>
+        /// Loads a file with the specified name
+        /// </summary>
+        /// <param name="name"></param>
+        internal static GameData Load(string name)
         {
-            IO.IO.Deserialize(name);
+            return IO.IO.Deserialize(name);
         }
         #endregion
         #endregion
@@ -210,22 +271,30 @@ namespace Core.Data
         }
     }
 
-    public static class DefaultSkills
+    public static class Defaults
     {
-        public static PlayerSkill[] strategistSkills = new PlayerSkill[]
+        public static PlayerSkill[][] Skills = new PlayerSkill[][]
         {
-            new PlayerSkill("ship_management", 10),
-            new PlayerSkill("combat_ships", 10),
-        };
-        public static PlayerSkill[] industrialistSkills = new PlayerSkill[]
-        {
-            new PlayerSkill("ship_management", 10),
-            new PlayerSkill("mining_ships", 10),
-        };
-        public static PlayerSkill[] capitalistSkills = new PlayerSkill[]
-        {
-            new PlayerSkill("ship_management", 10),
-            new PlayerSkill("transport_ships", 10),
+            //Default skills for Strategist
+            new PlayerSkill[]
+            {
+                new PlayerSkill("ship_management", 10),
+                new PlayerSkill("combat_ships", 10),
+            },
+
+            //Default skills for Industrialist
+            new PlayerSkill[]
+            {
+                new PlayerSkill("ship_management", 10),
+                new PlayerSkill("mining_ships", 10),
+            },
+
+            //Default skill for Capitalist
+            new PlayerSkill[]
+            {
+                new PlayerSkill("ship_management", 10),
+                new PlayerSkill("transport_ships", 10),
+            }
         };
     }
 }
