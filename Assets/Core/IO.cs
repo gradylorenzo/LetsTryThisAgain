@@ -16,7 +16,7 @@ namespace Core.IO
         {
             if (Directory.Exists(Constants.savesLocation))
             {
-                if(File.Exists(Constants.savesLocation + "/" + name + ".dat"))
+                if(File.Exists(Constants.savesLocation + "/" + name))
                 {
                     return true;
                 }
@@ -31,6 +31,21 @@ namespace Core.IO
             }
         }
 
+        public static FileInfo[] getFileList()
+        {
+            List<FileInfo> newList = new List<FileInfo>();
+
+            string[] files = Directory.GetFiles(Constants.savesLocation);
+            
+            foreach(string s in files)
+            {
+                FileInfo newInfo = new FileInfo(s, File.GetLastWriteTime(Constants.savesLocation + "/" + s).ToString());
+                newList.Add(newInfo);
+            }
+
+            return newList.ToArray();
+        }
+
         public static void Serialize(GameData gd)
         {
             //Make sure Saves directory exists. If it does not, create it.
@@ -40,10 +55,10 @@ namespace Core.IO
             }
 
             XmlSerializer xs = new XmlSerializer(typeof(GameData));
-            TextWriter tw = new StreamWriter(Constants.savesLocation + "/" + gd.playerData.name + ".dat");
+            TextWriter tw = new StreamWriter(Constants.savesLocation + "/" + gd.playerData.name);
             xs.Serialize(tw, gd);
             tw.Close();
-            Notify.Notify.Success("Successfuly saved GameData to " + Constants.savesLocation + "/" + gd.playerData.name + ".dat");
+            Notify.Notify.Success("Successfuly saved GameData to " + Constants.savesLocation + "/" + gd.playerData.name);
         }
 
         public static GameData Deserialize(string name)
@@ -58,18 +73,30 @@ namespace Core.IO
             }
             catch (ApplicationException e)
             {
-                Notify.Notify.Error("Failed to deserialize " + name + ".dat, see console for more details");
+                Notify.Notify.Error("Failed to deserialize " + name + " , see console for more details");
                 Debug.LogError(e.InnerException);
                 tr.Close();
             }
             finally
             {
-                Notify.Notify.Success("Successfully deserialized " + name + ".dat!");
+                Notify.Notify.Success("Successfully deserialized " + name);
                 tr.Close();
                 newGD = tmp;
             }
 
             return newGD;
+        }
+    }
+
+    public struct FileInfo
+    {
+        public string name;
+        public string date;
+
+        public FileInfo(string n, string d)
+        {
+            name = n;
+            date = d;
         }
     }
 }
