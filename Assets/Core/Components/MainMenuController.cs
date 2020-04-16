@@ -56,6 +56,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject LoadGamePanel;
     public GameObject LoadGameButtonPrefab;
     public GameObject LoadGameScrollingContent;
+    public GameObject NoGamesFound;
 
     private List<GameObject> LoadGameButtons = new List<GameObject>();
     #endregion
@@ -154,6 +155,7 @@ public class MainMenuController : MonoBehaviour
         string name = CharacterNameField.text;
         int sex = CharacterSexField.value;
         GameManager.NewGame(name, sex, (int)career);
+        menuState = MenuStates.NewGame;
     }
 
     public void SetNewGameCareerStrategist()
@@ -182,6 +184,7 @@ public class MainMenuController : MonoBehaviour
     public void BuildFileList()
     {
         SaveInfo[] files = GameManager.GetSaveList();
+        NoGamesFound.SetActive(files.Length == 0);
         for(int i = 0; i < files.Length; i++)
         {
             GameObject newSaveButton = Instantiate(LoadGameButtonPrefab, transform.position, transform.rotation);

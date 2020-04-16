@@ -23,7 +23,7 @@ namespace Core.Notify
             string gpuMem;
             string os;
             string res;
-            string messageToPlayer = "Main Menu is still being built out, not all functionality is ready. Currently only New Game works. This can be verified by checking the saves folder next to .exe";
+            string messageToPlayer = "Main Menu is still being built out, not all functionality is ready. Currently only New Game and Load Game work. This can be verified by checking the saves folder next to .exe, no game scene is ready to be loaded";
 
             cpu = "CPU Type: " + SystemInfo.processorType + "\n";
             cpuSpeed = "CPU Speed: " + SystemInfo.processorFrequency.ToString() + " MHz\n";
@@ -63,6 +63,16 @@ namespace Core.Notify
         private void FixedUpdate()
         {
             notificationBox.text = notifications;
+            specsBox.gameObject.SetActive(Notify.useDebugLog);
+            notificationBox.gameObject.SetActive(Notify.useDebugLog);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Home))
+            {
+                Notify.ToggleDebug();
+            }
         }
     }
 }

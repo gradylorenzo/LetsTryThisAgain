@@ -4,6 +4,7 @@ using Core;
 using Core.Data;
 using Core.Notify;
 using Core.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManagerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManagerController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
     private void Update()
     {
         GameManager.Tick(Time.time);        
@@ -43,15 +45,13 @@ public static class GameManager
     }
     #endregion
 
+    /// <summary>
+    /// Methods for handling game data. Saving, loading, unloaded, all handled here.
+    /// </summary>
     #region GameData handling
     public static bool loaded { get; private set; } = false;
     public static GameData gameData;
     public static SettingsData settings;
-
-    public static void InitializeGame()
-    {
-
-    }
 
     public static void LoadGame(string name)
     {
@@ -59,6 +59,7 @@ public static class GameManager
         {
             gameData = GameData.Load(name);
             loaded = true;
+            LoadOpenSpace();
         }
         else
         {
@@ -89,6 +90,7 @@ public static class GameManager
         {
             gameData = GameData.StartNewGame(name, sex, career);
             loaded = true;
+            LoadOpenSpace();
         }
         else
         {
@@ -101,6 +103,7 @@ public static class GameManager
         if (loaded)
         {
             loaded = false;
+            LoadMainMenu();
         }
         else
         {
@@ -114,7 +117,19 @@ public static class GameManager
     }
     #endregion
 
-    #region IO Wrapper
+    #region Scene management
+
+    private static void LoadOpenSpace()
+    {
+        PlayerPrefs.SetString("RECENT_SAVE", gameData.playerData.name);
+        SceneManager.LoadScene("OpenSpace");
+        SceneManager.LoadScene("CommonUI", LoadSceneMode.Additive);
+    }
+
+    private static void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
     #endregion
 }

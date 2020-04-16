@@ -11,48 +11,47 @@ namespace Core.Notify
             Success = 0,
             Message = 1,
             Warning = 2,
-            Error = 3
+            Error = 3,
+            Event = 4
         }
-        private static bool useDebugLog = false;
+
+        public static bool useDebugLog = false;
+
+        public static void ToggleDebug()
+        {
+            useDebugLog = !useDebugLog;
+        }
 
         public static void Log(string text)
         {
-            if (useDebugLog)
-            {
-                Debug.Log(text);
-            }
-
+            Debug.Log(text);
             ENotifyLog(Intent.Message, text);
         }
 
         public static void Success(string text)
         {
-            if (useDebugLog)
-            {
-                Debug.Log(text);
-            }
+            Debug.Log(text);
+
 
             ENotifyLog(Intent.Success, text);
         }
 
         public static void Warning(string text)
         {
-            if (useDebugLog)
-            {
-                Debug.Log(text);
-            }
-
+            Debug.Log(text);
             ENotifyLog(Intent.Warning, text);
         }
 
         public static void Error(string text)
         {
-            if (useDebugLog)
-            {
-                Debug.Log(text);
-            }
-
+            Debug.Log(text);
             ENotifyLog(Intent.Error, text);
+        }
+
+        public static void Event(string text)
+        {
+            Debug.Log(text);
+            ENotifyLog(Intent.Event, text);
         }
 
         public delegate void e_NotifyLog(Intent intent, string text);
