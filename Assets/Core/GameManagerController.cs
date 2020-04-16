@@ -66,6 +66,11 @@ public static class GameManager
         }
     }
 
+    public static SaveInfo[] GetSaveList()
+    {
+        return IO.getFileList();
+    }
+
     public static void SaveGame()
     {
         if (loaded)

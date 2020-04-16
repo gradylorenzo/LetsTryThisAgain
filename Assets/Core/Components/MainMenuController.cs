@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Core;
+using Core.Data;
 using Core.Notify;
 using System;
 
@@ -23,8 +24,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject ExitConfirm;
 
     #region NewGamePanel elements
-    public GameObject NewGamePanel;
     [Header("New Game")]
+    public GameObject NewGamePanel;
     public string[] CareerFlavorTexts;
     public string[] Sexes = new string[]
     {
@@ -50,6 +51,15 @@ public class MainMenuController : MonoBehaviour
     private bool saveExists = false;
     #endregion
 
+    #region LoadGamePanel elements
+    [Header("Load Game")]
+    public GameObject LoadGamePanel;
+    public GameObject LoadGameButtonPrefab;
+    public GameObject LoadGameScrollingContent;
+
+    private List<GameObject> LoadGameButtons = new List<GameObject>();
+    #endregion
+
     #region ConfirmNewGamePanel elements
     [Header("Confirm New Game")]
     public GameObject ConfirmNewGamePanel;
@@ -64,6 +74,7 @@ public class MainMenuController : MonoBehaviour
     public void Update()
     {
         NewGamePanel.SetActive(menuState == MenuStates.NewGame || menuState == MenuStates.ConfirmNewGame);
+        LoadGamePanel.SetActive(menuState == MenuStates.LoadGame);
         ConfirmNewGamePanel.SetActive(menuState == MenuStates.ConfirmNewGame);
         ConfirmNewGamePanelCharacterDescription.text = (CharacterNameField.text + ", " + Sexes[CharacterSexField.value] + " " + career.ToString()).ToUpper();
         ExitConfirm.SetActive(menuState == MenuStates.ExitConfirm);
@@ -107,7 +118,13 @@ public class MainMenuController : MonoBehaviour
     public void SetMenuLoadGame()
     {
         menuState = MenuStates.LoadGame;
-        Notify.Error("Load, not implemented");
+        foreach(GameObject go in LoadGameButtons)
+        {
+            Destroy(go);
+        }
+        LoadGameButtons.Clear();
+        BuildFileList();
+        Notify.Log("Load");
     }
     public void SetMenuSettings()
     {
@@ -154,5 +171,30 @@ public class MainMenuController : MonoBehaviour
         career = Careers.colonist;
         Notify.Success("Career changed to Colonist!");
     }
+    #endregion
+
+    #region LoadGame methods
+    public void LoadGame(string name)
+    {
+        GameManager.LoadGame(name);
+    }
+
+    public void BuildFileList()
+    {
+        SaveInfo[] files = GameManager.GetSaveList();
+        for(int i = 0; i < files.Length; i++)
+        {
+            GameObject newSaveButton = Instantiate(LoadGameButtonPrefab, transform.position, transform.rotation);
+            newSaveButton.transform.parent = LoadGameScrollingContent.transform;
+            newSaveButton.GetComponent<MMFileListButton>().file.text = files[i].name;
+            newSaveButton.GetComponent<MMFileListButton>().date.text = files[i].date;
+            newSaveButton.GetComponent<MMFileListButton>().mmc = this;
+            Rect buttonRect = newSaveButton.GetComponent<RectTransform>().rect;
+            newSaveButton.GetComponent<RectTransform>().rect.Set(buttonRect.x, buttonRect.y, 400, buttonRect.height);
+
+            LoadGameButtons.Add(newSaveButton);
+        }
+    }
+
     #endregion
 }

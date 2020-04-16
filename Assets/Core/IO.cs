@@ -31,15 +31,15 @@ namespace Core.IO
             }
         }
 
-        public static FileInfo[] getFileList()
+        public static SaveInfo[] getFileList()
         {
-            List<FileInfo> newList = new List<FileInfo>();
+            List<SaveInfo> newList = new List<SaveInfo>();
 
             string[] files = Directory.GetFiles(Constants.savesLocation);
             
             foreach(string s in files)
             {
-                FileInfo newInfo = new FileInfo(s, File.GetLastWriteTime(Constants.savesLocation + "/" + s).ToString());
+                SaveInfo newInfo = new SaveInfo(s.Remove(0, 6), File.GetLastWriteTime(s).ToString());
                 newList.Add(newInfo);
             }
 
@@ -66,7 +66,7 @@ namespace Core.IO
             GameData newGD = new GameData();
             GameData tmp = new GameData();
             XmlSerializer xs = new XmlSerializer(typeof(GameData));
-            TextReader tr = new StreamReader(Constants.savesLocation + "/" + name + "dat");
+            TextReader tr = new StreamReader(Constants.savesLocation + "/" + name);
             try
             {
                 tmp = (GameData)xs.Deserialize(tr);
@@ -85,18 +85,6 @@ namespace Core.IO
             }
 
             return newGD;
-        }
-    }
-
-    public struct FileInfo
-    {
-        public string name;
-        public string date;
-
-        public FileInfo(string n, string d)
-        {
-            name = n;
-            date = d;
         }
     }
 }
