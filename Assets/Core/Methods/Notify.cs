@@ -15,7 +15,7 @@ namespace Core.Notify
             Event = 4
         }
 
-        public static bool useDebugLog = false;
+        public static bool useDebugLog = true;
 
         public static void ToggleDebug()
         {

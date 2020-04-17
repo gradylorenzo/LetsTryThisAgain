@@ -10873,6 +10873,7 @@ MonoBehaviour:
     type: 3}
   LoadGameScrollingContent: {fileID: 86064403}
   NoGamesFound: {fileID: 1177720810}
+  ResumeButton: {fileID: 1576992034}
   ConfirmNewGamePanel: {fileID: 1577714424}
   ConfirmNewGamePanelCharacterDescription: {fileID: 1294927373}
 --- !u!4 &337020005
@@ -13178,10 +13179,10 @@ MonoBehaviour:
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_HorizontalAxis: LATERAL
+  m_VerticalAxis: VERTICAL
+  m_SubmitButton: SUBMIT
+  m_CancelButton: CANCEL
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0

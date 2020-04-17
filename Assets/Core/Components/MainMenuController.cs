@@ -61,6 +61,11 @@ public class MainMenuController : MonoBehaviour
     private List<GameObject> LoadGameButtons = new List<GameObject>();
     #endregion
 
+    #region Resume elements
+    [Header("Resume Elements")]
+    public GameObject ResumeButton;
+    #endregion
+
     #region ConfirmNewGamePanel elements
     [Header("Confirm New Game")]
     public GameObject ConfirmNewGamePanel;
@@ -70,6 +75,7 @@ public class MainMenuController : MonoBehaviour
     public void Start()
     {
         menuState = MenuStates.MainMenu;
+        ResumeButton.GetComponent<Button>().interactable = PlayerPrefs.HasKey("RECENT_SAVE");
     }
 
     public void Update()
@@ -109,7 +115,8 @@ public class MainMenuController : MonoBehaviour
     public void SetMenuResume()
     {
         menuState = MenuStates.ResumeGame;
-        Notify.Error("Resume, not implemented");
+        GameManager.LoadGame(PlayerPrefs.GetString("RECENT_SAVE"));
+        Notify.Log("Resume");
     }
     public void SetMenuNewGame()
     {
