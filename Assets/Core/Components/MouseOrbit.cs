@@ -25,9 +25,13 @@ public class MouseOrbit : MonoBehaviour
     public Vector2 firstMousePosition;
     public int unlockThreshold = 5;
     public bool useClickAndDrag = false;
+    public float dampening = 1.0f;
     private bool spinUnlocked = true;
 
     private Rigidbody rigidbody;
+    private Quaternion currentRotation;
+
+    private 
 
     float x = 0.0f;
     float y = 0.0f;
@@ -54,6 +58,9 @@ public class MouseOrbit : MonoBehaviour
 
         currentDistance = defaultDistance;
         wantedDistance = defaultDistance;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()
@@ -97,7 +104,8 @@ public class MouseOrbit : MonoBehaviour
 
             y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-            Quaternion rotation = Quaternion.Euler(y, x, 0);
+            Quaternion wantedRotation = Quaternion.Euler(y, x, 0);
+            currentRotation = Quaternion.Lerp(currentRotation, wantedRotation, dampening);
 
             wantedDistance = Mathf.Clamp(wantedDistance - Input.GetAxis("MOUSE_Z") * zSpeed, distanceMin, distanceMax);
 
@@ -109,10 +117,9 @@ public class MouseOrbit : MonoBehaviour
             wantedPosition = target.position;
             currentPosition = Vector3.Lerp(currentPosition, wantedPosition, panSpeed);
 
-            Vector3 position = rotation * negDistance + currentPosition;
+            Vector3 position = currentRotation * negDistance + currentPosition;
 
-
-            transform.rotation = rotation;
+            transform.rotation = currentRotation;
             transform.position = position;
         }
     }
