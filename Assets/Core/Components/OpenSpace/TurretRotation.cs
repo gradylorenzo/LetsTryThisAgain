@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core
 {
@@ -38,7 +39,6 @@ namespace Core
         public bool showDebugRay = true;
 
         private Vector3 aimPoint;
-
         private bool aiming = false;
         private bool atRest = false;
 
@@ -190,11 +190,16 @@ namespace Core
                 // Clamp target rotation by creating a limited rotation to the target.
                 // Use different clamps depending if the target is above or below the turret.
                 Vector3 clampedLocalVec2Target = localTargetPos;
-                if (localTargetPos.y >= 0.0f)
-                    clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * elevation, float.MaxValue);
-                else
-                    clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * depression, float.MaxValue);
+                Vector3 unclampedLocalVec2Target = localTargetPos;
 
+                if (localTargetPos.y >= 0.0f)
+                {
+                    clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * elevation, float.MaxValue);
+                }
+                else
+                {
+                    clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * depression, float.MaxValue);
+                }
                 // Create new rotation towards the target in local space.
                 Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
                 Quaternion newRotation = Quaternion.RotateTowards(turretBarrels.localRotation, rotationGoal, 2.0f * turnRate * Time.deltaTime);

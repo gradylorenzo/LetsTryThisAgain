@@ -10,7 +10,7 @@ public class CameraRaycast : MonoBehaviour
     public Text readout;
     public float maxDistance = 500.0f;
 
-    public TurretRotation[] turrets;
+    public WeaponController wc;
 
     private void FixedUpdate()
     {
@@ -24,18 +24,11 @@ public class CameraRaycast : MonoBehaviour
         {
             readout.text = hit.transform.name;
             readoutPanel.SetActive(true);
-            foreach(TurretRotation tc in turrets)
-            {
-                tc.SetAimpoint(hit.point);
-            }
+            //wc.UpdateTurrets(hit.point);
         }
         else
         {
-            readoutPanel.SetActive(false);
-            foreach(TurretRotation tc in turrets)
-            {
-                tc.SetAimpoint(transform.forward * maxDistance);
-            }
+            //wc.UpdateTurrets(transform.forward * maxDistance);
         }
     }
 }
