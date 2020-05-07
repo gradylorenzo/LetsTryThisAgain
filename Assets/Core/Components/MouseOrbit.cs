@@ -16,12 +16,14 @@ public class MouseOrbit : MonoBehaviour
     public float xSpeed = 120.0f;
     public float ySpeed = 120.0f;
     public float zSpeed = 20.0f;
-
+    public float fovSpeed = 1.0f;
     public float yMinLimit = -20f;
     public float yMaxLimit = 80f;
 
     public float distanceMin = .5f;
     public float distanceMax = 15f;
+    public float fovMin;
+    public float fovMax;
     public Vector2 firstMousePosition;
     public int unlockThreshold = 5;
     public bool useClickAndDrag = false;
@@ -30,11 +32,14 @@ public class MouseOrbit : MonoBehaviour
 
     private Rigidbody rigidbody;
     private Quaternion currentRotation;
+    private Camera camera;
 
     private 
 
     float x = 0.0f;
     float y = 0.0f;
+    float f = 0.0f;
+    bool isZoomed = false;
 
     // Use this for initialization
     private void Awake()
@@ -44,6 +49,8 @@ public class MouseOrbit : MonoBehaviour
 
     void Start()
     {
+        camera = GetComponent<Camera>();
+        f = camera.fieldOfView;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
@@ -65,6 +72,7 @@ public class MouseOrbit : MonoBehaviour
 
     void FixedUpdate()
     {
+        DoZoom();
         if (target)
         {
             if (useClickAndDrag)
@@ -124,6 +132,19 @@ public class MouseOrbit : MonoBehaviour
         }
     }
 
+    private void DoZoom()
+    {
+        if (isZoomed)
+        {
+            f = Mathf.MoveTowards(f, fovMin, fovSpeed);
+        }
+        else
+        {
+            f = Mathf.MoveTowards(f, fovMax, fovSpeed);
+        }
+        camera.fieldOfView = f;
+    }
+
     public static float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360F)
@@ -131,6 +152,11 @@ public class MouseOrbit : MonoBehaviour
         if (angle > 360F)
             angle -= 360F;
         return Mathf.Clamp(angle, min, max);
+    }
+
+    public void Zoom(bool b)
+    {
+        isZoomed = b;
     }
 
     public void EUpdateFloatingOrigin(Vector3 offset)

@@ -41,10 +41,10 @@ InputManager:
     m_Name: LATERAL
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: left ctrl
-    altNegativeButton: q
-    altPositiveButton: e
+    negativeButton: a
+    positiveButton: d
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: Infinity
     dead: 0.25
     sensitivity: Infinity

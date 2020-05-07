@@ -100,7 +100,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8233786933729253055}
-  - component: {fileID: 8233786933729253048}
   m_Layer: 0
   m_Name: WeaponController
   m_TagString: Untagged
@@ -123,31 +122,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8233786933729253048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8233786933729253054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0123a064d98280a46918547bdc03d0e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hardpoints:
-  - size: 1
-    position: {x: -3.7671938, y: 1.8403707, z: 3.8921764}
-    rotation: {x: 0, y: 0, z: 0}
-    leftTraverse: 0
-    rightTraverse: 0
-    elevation: 0
-    depression: 0
-  - size: 1
-    position: {x: 3.767194, y: 1.8403707, z: 3.8921764}
-    rotation: {x: 0, y: 0, z: 0}
-    leftTraverse: 0
-    rightTraverse: 0
-    elevation: 0
-    depression: 0
-  placeholder: {fileID: 4300000, guid: 72fe926e6fe3969489cef2689c9cff32, type: 3}

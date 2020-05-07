@@ -9,6 +9,7 @@ namespace Core.Data
 {
     public static class Libraries
     {
+        #region Skills
         [System.Serializable]
         public struct Skill
         {
@@ -66,6 +67,10 @@ namespace Core.Data
             }
             return m;
         }
+        #endregion
+        #region Ships
+
+        #endregion
     }
 }
 

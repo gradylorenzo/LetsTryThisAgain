@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Core;
+using Core.Modules;
 
-[CustomEditor(typeof(Hardpoint))]
+
+[CustomEditor(typeof(HardpointModule))]
 [CanEditMultipleObjects]
 public class HardpointEditor : Editor
 {
@@ -11,23 +14,23 @@ public class HardpointEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        Hardpoint hp = (Hardpoint)target;
+        HardpointModule hp = (HardpointModule)target;
 
         DrawDefaultInspector();
     }
 
     private void OnSceneGUI()
     {
-        Hardpoint hp = (Hardpoint)target;
+        HardpointModule hp = (HardpointModule)target;
         Transform tf = hp.transform;
         HardpointConfig hc = hp.config;
 
         //Draw traversal arcs
-        if (hc.limitTraverse)
+        Handles.color = new Color(1.0f, 0.5f, 0.5f, 0.1f);
+        if (hc.limitBearing)
         {
-            Handles.color = new Color(1.0f, 0.5f, 0.5f, 0.1f);
-            Handles.DrawSolidArc(tf.position, tf.up, tf.forward, hc.rightTraverse, ArcSize);
-            Handles.DrawSolidArc(tf.position, tf.up, tf.forward, -hc.leftTraverse, ArcSize);
+            Handles.DrawSolidArc(tf.position, tf.up, tf.forward, hc.maxBearing, ArcSize);
+            Handles.DrawSolidArc(tf.position, tf.up, tf.forward, -hc.minBearing, ArcSize);
         }
         else
         {
@@ -36,10 +39,10 @@ public class HardpointEditor : Editor
 
         //Draw elevation arc
         Handles.color = new Color(0.5f, 0.5f, 1.0f, 0.1f);
-        Handles.DrawSolidArc(tf.position, tf.right, tf.forward, -hc.elevation, ArcSize);
+        Handles.DrawSolidArc(tf.position, tf.right, tf.forward, -hc.maxAzimuth, ArcSize);
 
         //Draw depression arc
         Handles.color = new Color(0.5f, 1.0f, 0.5f, 0.1f);
-        Handles.DrawSolidArc(tf.position, tf.right, tf.forward, hc.depression, ArcSize);
+        Handles.DrawSolidArc(tf.position, tf.right, tf.forward, hc.minAzimuth, ArcSize);
     }
 }
