@@ -12,6 +12,7 @@ namespace Core.Data
         #region Fields
         public PlayerData playerData;
         public SkillsData skillsData;
+        public ShipData shipData;
         #endregion
 
         #region Public methods
@@ -30,7 +31,7 @@ namespace Core.Data
             newGD.playerData.sex = sex;
             newGD.playerData.credits = 0;
             newGD.playerData.time = 0;
-
+            newGD.shipData = Defaults.ships;
             newGD.skillsData.playerSkills = InitializeSkills(Defaults.Skills[def]);
             Save(newGD);
             newGD = Load(name);
@@ -198,7 +199,6 @@ namespace Core.Data
         public int credits; //Limited to one billion
         public int time; //Time in seconds since the start of the save.
         #endregion
-
         #region Constructors
         public PlayerData(string n, int s, long c, int t)
         {
@@ -208,6 +208,43 @@ namespace Core.Data
             time = t;
         }
         #endregion
+    }
+
+    public struct ShipData
+    {
+        public PlayerShip active;
+        public PlayerShip[] stored;
+
+        public ShipData(PlayerShip a, PlayerShip[] s)
+        {
+            active = a;
+            stored = s;
+        }
+    }
+
+    public struct PlayerShip
+    {
+        public string name;
+        public string id;
+        public Loadout loadout;
+
+        public PlayerShip(string n, string i, Loadout l)
+        {
+            name = n;
+            id = i;
+            loadout = l;
+        }
+    }
+
+    [Serializable]
+    public struct Loadout
+    {
+        public string weaponSystemID;
+
+        public Loadout(string w)
+        {
+            weaponSystemID = w;
+        }
     }
 
     public struct SkillsData
@@ -273,6 +310,16 @@ namespace Core.Data
 
     public static class Defaults
     {
+        public static ShipData ships = new ShipData
+        {
+            active = new PlayerShip
+            {
+                name = "Thrush",
+                id = "thrush",
+                loadout = new Loadout("cannon")
+            },
+            stored = new PlayerShip[0]
+        };
         public static PlayerSkill[][] Skills = new PlayerSkill[][]
         {
             //Default skills for Strategist

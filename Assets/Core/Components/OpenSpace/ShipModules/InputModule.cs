@@ -7,18 +7,24 @@ using Core.Modules;
 public class InputModule : MonoBehaviour
 {
     #region Cache
+    [SerializeField]
     private CoreModule core;
-    private Rigidbody rb;
+    public Camera mainCamera { get; private set; }
     #endregion
     #region MB Methods
     void Start()
+    {  
+    }
+
+    private void Update()
     {
-        rb = GetComponent<Rigidbody>();   
+        FIND_MAIN_CAMERA();
+        TAKE_INPUT();
     }
 
     void FixedUpdate()
     {
-        TAKE_INPUTS();
+        
     }
     #endregion
     #region Public Methods
@@ -28,31 +34,24 @@ public class InputModule : MonoBehaviour
     }
     #endregion
     #region Private Methods
-    private void TAKE_INPUTS()
+    private void TAKE_INPUT()
     {
-        
-        #region CameraZoom
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            core.mainCamera.SendMessage("Zoom", true);
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            core.mainCamera.SendMessage("Zoom", false);
-        }
+        #region Ship Movement
+        //Ship only rotates on y axis, so only one value is needed, not a whole-ass Vector3, to represent rotation
+        Vector3 direction;
+        float r;
+        direction = new Vector3(0, Input.GetAxis("VERTICAL"), Input.GetAxis("LONGITUDINAL"));
+        r = Input.GetAxis("LATERAL");
+        core.SetMobilityVectors(direction, r);
         #endregion
-        #region Firing
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+    }
+
+    private void FIND_MAIN_CAMERA()
+    {
+        if (!mainCamera)
         {
-            core.equipmentModule.SendMessage("Fire");
+            mainCamera = Camera.main;
         }
-        #endregion
-        #region Movement
-        core.effectsModule.SetThrusters(Input.GetAxis("VERTICAL"), Input.GetAxis("LONGITUDINAL"));
-        rb.AddRelativeForce(0, Input.GetAxis("VERTICAL")*20, Input.GetAxis("LONGITUDINAL")*20);
-        rb.AddTorque(0, Input.GetAxis("LATERAL") * 20, 0);
-        
-        #endregion
     }
     #endregion
 }

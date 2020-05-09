@@ -24,4 +24,14 @@ namespace Core.Data
         Large,
         XLarge
     }
+
+    [System.Serializable]
+    public enum WeaponSize
+    {
+        Utility = 1,
+        Small = 1,
+        Medium = 2,
+        Large = 4,
+        XLarge = 8
+    }
 }

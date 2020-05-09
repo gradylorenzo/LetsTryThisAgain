@@ -24,7 +24,7 @@ namespace Core.Notify
             string os;
             string res;
             string messageToPlayer = "Main Menu is still being built out, not all functionality is ready. Load Game and New Game are working. Controls for ship are W and S to" +
-                "move longitudinally, Q and E to move laterally, R and F OR Space and Left Shift to move vertically, and A and D to rotate. Control system is still being prototyped.";
+                "move longitudinally, R and F OR Space and Left Shift to move vertically, and A and D to rotate. Control system is still being prototyped.";
 
             cpu = "CPU Type: " + SystemInfo.processorType + "\n";
             cpuSpeed = "CPU Speed: " + SystemInfo.processorFrequency.ToString() + " MHz\n";

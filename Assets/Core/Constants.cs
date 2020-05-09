@@ -11,5 +11,7 @@ namespace Core
         public const int maxSkillpoints = 999999999; //Max SP is one billion
         public const string savesLocation = "Saves";
         public const float FloatingOriginUpdateThreshold = 10; //How far can the player move from the origin before the floating origin correction is applied?
+        public const string ShipPrefabLocation = "PREFABS/SHIPS";
+        public const string WeaponPrefabLocation = "PREFABS/WEAPONS";
     }
 }

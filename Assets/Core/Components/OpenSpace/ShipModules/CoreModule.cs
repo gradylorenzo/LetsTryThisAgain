@@ -4,48 +4,45 @@ using UnityEngine;
 using Core;
 using Core.Modules;
 using System;
+using Core.Data.Stats;
 
 namespace Core.Modules
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(EquipmentModule))]
     [RequireComponent(typeof(IntegrityModule))]
-    [RequireComponent(typeof(InputModule))]
     [RequireComponent(typeof(EffectsModule))]
+    [RequireComponent(typeof(MobilityModule))]
     public class CoreModule : MonoBehaviour
     {
-        public EquipmentModule equipmentModule;
-        public IntegrityModule integrityModule;
-        public InputModule inputModule;
-        public EffectsModule effectsModule;
+        public EquipmentModule equipment    { get; private set; }
+        public IntegrityModule integrity    { get; private set; }
+        public EffectsModule effects        { get; private set; }
+        public MobilityModule mobility      { get; private set; }
 
-        public Camera mainCamera { get; private set; }
+        public StatSet baseStats;
+        public StatSet modifiedStats        { get; private set; }
+        public StatSet currentStats         { get; private set; }
 
         private void Start()
         {
-            FIND_MAIN_CAMERA();
-            equipmentModule = GetComponent<EquipmentModule>();
-            integrityModule = GetComponent<IntegrityModule>();
-            inputModule = GetComponent<InputModule>();
-            effectsModule = GetComponent<EffectsModule>();
+            equipment = GetComponent<EquipmentModule>();
+            integrity = GetComponent<IntegrityModule>();
+            effects =   GetComponent<EffectsModule>();
+            mobility =  GetComponent<MobilityModule>();
 
-            equipmentModule.SetCoreModule(this);
-            integrityModule.SetCoreModule(this);
-            inputModule.SetCoreModule(this);
-            effectsModule.SetCoreModule(this);
+            equipment.SetCoreModule(this);
+            integrity.SetCoreModule(this);
+            effects.SetCoreModule(this);
+            mobility.SetCoreModule(this);
         }
 
-        private void Update()
+        #region Module Calls
+        public void SetMobilityVectors(Vector3 d, float r)
         {
-            FIND_MAIN_CAMERA();
+            mobility.SetVectors(d, r);
+            effects.SetVectors(d, r);
         }
-
-        private void FIND_MAIN_CAMERA()
-        {
-            if (!mainCamera)
-            {
-                mainCamera = Camera.main;
-            }
-        }
+        #endregion
     }
 }

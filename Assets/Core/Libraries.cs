@@ -69,7 +69,56 @@ namespace Core.Data
         }
         #endregion
         #region Ships
+        [System.Serializable]
+        public struct Ship
+        {
+            public string name;
+            public string prefab;
 
+            public Ship(string n, string p)
+            {
+                name = n;
+                prefab = p;
+            }
+        }
+        public readonly static Dictionary<string, Ship> ShipLibrary = new Dictionary<string, Ship>
+        {
+            {"thrush", new Ship("Thush", "thrush")}
+        };
+        public static GameObject GetShipPrefab(string id)
+        {
+            GameObject newShip;
+            string shipPrefab = ShipLibrary[id].prefab;
+            newShip = (GameObject)Resources.Load(Constants.ShipPrefabLocation + shipPrefab);
+
+            return newShip;
+        }
+        #endregion
+        #region Weapons
+        [System.Serializable]
+        public struct Weapon
+        {
+            public WeaponSize size;
+            public string prefab;
+
+            public Weapon(WeaponSize s, string p)
+            {
+                size = s;
+                prefab = p;
+            }
+        }
+        public static readonly Dictionary<string, Weapon> WeaponLibrary = new Dictionary<string, Weapon>
+        {
+            {"cannon", new Weapon(WeaponSize.Small, "cannon")}
+        };
+        public static GameObject GetWeaponPrefab(string id)
+        {
+            GameObject newWeapon;
+            string weaponPrefab = WeaponLibrary[id].prefab;
+            newWeapon = (GameObject)Resources.Load(Constants.WeaponPrefabLocation + weaponPrefab);
+
+            return newWeapon;
+        }
         #endregion
     }
 }

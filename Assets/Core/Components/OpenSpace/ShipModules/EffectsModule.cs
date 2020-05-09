@@ -12,17 +12,29 @@ public class EffectsModule : MonoBehaviour
 
     #region Cache
     private CoreModule core;
+    private Vector3 direction;
     #endregion
+
+    private void Update()
+    {
+        UPDATE_THRUSTERS();
+    }
 
     public void SetCoreModule(CoreModule mod)
     {
         core = mod;
     }
 
-    public void SetThrusters(float y, float z)
+    public void SetVectors(Vector3 d, float r)
     {
-        rearThrusters.SetActive(z > 0);
-        topThrusters.SetActive(y < 0);
-        bottomThrusters.SetActive(y > 0);
+        direction = d;
     }
+
+    private void UPDATE_THRUSTERS()
+    {
+        rearThrusters.SetActive(direction.z > 0);
+        topThrusters.SetActive(direction.y < 0);
+        bottomThrusters.SetActive(direction.y > 0);
+    }
+
 }
