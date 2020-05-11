@@ -74,11 +74,25 @@ namespace Core.Modules
             {
                 if (dm.type == ModifierType.Percentage)
                 {
-                    allPercentage += dm.bonus;
+                    if (dm.skillAssociation == "")
+                    {
+                        allPercentage += dm.bonus;
+                    }
+                    else
+                    {
+                        allPercentage += dm.bonus * GameManager.gameData.skillsData.GetSkillIndex(dm.skillAssociation);
+                    }
                 }
                 else
                 {
-                    allFlat += dm.bonus;
+                    if (dm.skillAssociation == "")
+                    {
+                        allFlat += dm.bonus;
+                    }
+                    else
+                    {
+                        allFlat += dm.bonus * GameManager.gameData.skillsData.GetSkillIndex(dm.skillAssociation);
+                    }
                 }
             }
             _modifiedStats.defense = _baseStats.defense + (_baseStats.defense * allPercentage);
@@ -92,11 +106,25 @@ namespace Core.Modules
             {
                 if(om.type == ModifierType.Percentage)
                 {
-                    allPercentage += om.bonus;
+                    if (om.skillAssociation == "")
+                    {
+                        allPercentage += om.bonus;
+                    }
+                    else
+                    {
+                        allPercentage += om.bonus * GameManager.gameData.skillsData.GetSkillIndex(om.skillAssociation);
+                    }
                 }
                 else
                 {
-                    allFlat += om.bonus;
+                    if (om.skillAssociation == "")
+                    {
+                        allFlat += om.bonus;
+                    }
+                    else
+                    {
+                        allFlat += om.bonus * GameManager.gameData.skillsData.GetSkillIndex(om.skillAssociation);
+                    }
                 }
             }
             _modifiedStats.offense = _baseStats.offense + (_baseStats.offense * allPercentage);
@@ -110,11 +138,25 @@ namespace Core.Modules
             {
                 if(pm.type == ModifierType.Percentage)
                 {
-                    allPercentage += pm.bonus;
+                    if (pm.skillAssociation == "")
+                    {
+                        allPercentage += pm.bonus;
+                    }
+                    else
+                    {
+                        allPercentage += pm.bonus * GameManager.gameData.skillsData.GetSkillIndex(pm.skillAssociation);
+                    }
                 }
                 else
                 {
-                    allFlat += pm.bonus;
+                    if (pm.skillAssociation == "")
+                    {
+                        allFlat += pm.bonus;
+                    }
+                    else
+                    {
+                        allFlat += pm.bonus * GameManager.gameData.skillsData.GetSkillIndex(pm.skillAssociation);
+                    }
                 }
             }
 
@@ -129,11 +171,25 @@ namespace Core.Modules
             {
                 if(mm.type == ModifierType.Percentage)
                 {
-                    allPercentage += mm.bonus;
+                    if (mm.skillAssociation == "")
+                    {
+                        allPercentage += mm.bonus;
+                    }
+                    else
+                    {
+                        allPercentage += mm.bonus * GameManager.gameData.skillsData.GetSkillIndex(mm.skillAssociation);
+                    }
                 }
                 else
                 {
-                    allFlat += mm.bonus;
+                    if (mm.skillAssociation == "")
+                    {
+                        allFlat += mm.bonus;
+                    }
+                    else
+                    {
+                        allFlat += mm.bonus * GameManager.gameData.skillsData.GetSkillIndex(mm.skillAssociation);
+                    }
                 }
             }
 
@@ -149,11 +205,25 @@ namespace Core.Modules
             {
                 if(cm.type == ModifierType.Percentage)
                 {
-                    allPercentage += cm.bonus;
+                    if (cm.skillAssociation == "")
+                    {
+                        allPercentage += cm.bonus;
+                    }
+                    else
+                    {
+                        allPercentage += cm.bonus * GameManager.gameData.skillsData.GetSkillIndex(cm.skillAssociation);
+                    }
                 }
                 else
                 {
-                    allFlat += cm.bonus;
+                    if (cm.skillAssociation == "")
+                    {
+                        allFlat += cm.bonus;
+                    }
+                    else
+                    {
+                        allFlat += cm.bonus * GameManager.gameData.skillsData.GetSkillIndex(cm.skillAssociation);
+                    }
                 }
             }
 

@@ -121,6 +121,43 @@ namespace Core.Data.Stats
             c.armor = a.armor / b.armor;
             return c;
         }
+
+        public static Defense operator +(Defense a, float b)
+        {
+            Defense c = new Defense();
+            c.shields = a.shields + b;
+            c.rechargeRate = a.rechargeRate + b;
+            c.rechargeDelay = a.rechargeDelay + b;
+            c.armor = a.armor + b;
+            return c;
+        }
+        public static Defense operator -(Defense a, float b)
+        {
+            Defense c = new Defense();
+            c.shields = a.shields - b;
+            c.rechargeRate = a.rechargeRate - b;
+            c.rechargeDelay = a.rechargeDelay - b;
+            c.armor = a.armor - b;
+            return c;
+        }
+        public static Defense operator *(Defense a, float b)
+        {
+            Defense c = new Defense();
+            c.shields = a.shields * b;
+            c.rechargeRate = a.rechargeRate * b;
+            c.rechargeDelay = a.rechargeDelay * b;
+            c.armor = a.armor * b;
+            return c;
+        }
+        public static Defense operator /(Defense a, float b)
+        {
+            Defense c = new Defense();
+            c.shields = a.shields / b;
+            c.rechargeRate = a.rechargeRate / b;
+            c.rechargeDelay = a.rechargeDelay / b;
+            c.armor = a.armor / b;
+            return c;
+        }
         #endregion
     }
     [System.Serializable]
@@ -172,6 +209,39 @@ namespace Core.Data.Stats
             c.missileDamage = a.missileDamage / b.missileDamage;
             return c;
         }
+
+        public static Offense operator +(Offense a, float b)
+        {
+            Offense c = new Offense();
+            c.gaussDamage = a.gaussDamage + b;
+            c.laserDamage = a.laserDamage + b;
+            c.missileDamage = a.missileDamage + b;
+            return c;
+        }
+        public static Offense operator -(Offense a, float b)
+        {
+            Offense c = new Offense();
+            c.gaussDamage = a.gaussDamage - b;
+            c.laserDamage = a.laserDamage - b;
+            c.missileDamage = a.missileDamage - b;
+            return c;
+        }
+        public static Offense operator *(Offense a, float b)
+        {
+            Offense c = new Offense();
+            c.gaussDamage = a.gaussDamage * b;
+            c.laserDamage = a.laserDamage * b;
+            c.missileDamage = a.missileDamage * b;
+            return c;
+        }
+        public static Offense operator /(Offense a, float b)
+        {
+            Offense c = new Offense();
+            c.gaussDamage = a.gaussDamage / b;
+            c.laserDamage = a.laserDamage / b;
+            c.missileDamage = a.missileDamage / b;
+            return c;
+        }
         #endregion
     }
     [System.Serializable]
@@ -215,6 +285,35 @@ namespace Core.Data.Stats
             Power c = new Power();
             c.capacity = a.capacity / b.capacity;
             c.output = a.output / b.output;
+            return c;
+        }
+
+        public static Power operator +(Power a, float b)
+        {
+            Power c = new Power();
+            c.capacity = a.capacity + b;
+            c.output = a.output + b;
+            return c;
+        }
+        public static Power operator -(Power a, float b)
+        {
+            Power c = new Power();
+            c.capacity = a.capacity - b;
+            c.output = a.output - b;
+            return c;
+        }
+        public static Power operator *(Power a, float b)
+        {
+            Power c = new Power();
+            c.capacity = a.capacity * b;
+            c.output = a.output * b;
+            return c;
+        }
+        public static Power operator /(Power a, float b)
+        {
+            Power c = new Power();
+            c.capacity = a.capacity / b;
+            c.output = a.output / b;
             return c;
         }
         #endregion
@@ -274,6 +373,43 @@ namespace Core.Data.Stats
             c.warp = a.warp / b.warp;
             return c;
         }
+
+        public static Mobility operator +(Mobility a, float b)
+        {
+            Mobility c = new Mobility();
+            c.mass = a.mass + b;
+            c.thrust = a.thrust + b;
+            c.torque = a.torque + b;
+            c.warp = a.warp + b;
+            return c;
+        }
+        public static Mobility operator -(Mobility a, float b)
+        {
+            Mobility c = new Mobility();
+            c.mass = a.mass - b;
+            c.thrust = a.thrust - b;
+            c.torque = a.torque - b;
+            c.warp = a.warp - b;
+            return c;
+        }
+        public static Mobility operator *(Mobility a, float b)
+        {
+            Mobility c = new Mobility();
+            c.mass = a.mass * b;
+            c.thrust = a.thrust * b;
+            c.torque = a.torque * b;
+            c.warp = a.warp * b;
+            return c;
+        }
+        public static Mobility operator /(Mobility a, float b)
+        {
+            Mobility c = new Mobility();
+            c.mass = a.mass / b;
+            c.thrust = a.thrust / b;
+            c.torque = a.torque / b;
+            c.warp = a.warp / b;
+            return c;
+        }
         #endregion
     }
     [System.Serializable]
@@ -313,6 +449,31 @@ namespace Core.Data.Stats
             c.capacity = a.capacity / b.capacity;
             return c;
         }
+
+        public static Cargo operator +(Cargo a, float b)
+        {
+            Cargo c = new Cargo();
+            c.capacity = a.capacity + b;
+            return c;
+        }
+        public static Cargo operator -(Cargo a, float b)
+        {
+            Cargo c = new Cargo();
+            c.capacity = a.capacity - b;
+            return c;
+        }
+        public static Cargo operator *(Cargo a, float b)
+        {
+            Cargo c = new Cargo();
+            c.capacity = a.capacity * b;
+            return c;
+        }
+        public static Cargo operator /(Cargo a, float b)
+        {
+            Cargo c = new Cargo();
+            c.capacity = a.capacity / b;
+            return c;
+        }
         #endregion
     }
     #endregion
@@ -332,30 +493,35 @@ namespace Core.Data.Stats
     {
         public ModifierType type;
         public Defense bonus;
+        public string skillAssociation;
     }
     [Serializable]
     public struct OffenseModifier
     {
         public ModifierType type;
         public Offense bonus;
+        public string skillAssociation;
     }
     [Serializable]
     public struct PowerModifier
     {
         public ModifierType type;
         public Power bonus;
+        public string skillAssociation;
     }
     [Serializable]
     public struct MobilityModifier
     {
         public ModifierType type;
         public Mobility bonus;
+        public string skillAssociation;
     }
     [Serializable]
     public struct CargoModifier
     {
         public ModifierType type;
         public Cargo bonus;
+        public string skillAssociation;
     }
     [Serializable]
     public enum ModifierType
