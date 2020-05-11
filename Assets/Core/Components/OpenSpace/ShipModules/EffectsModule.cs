@@ -36,5 +36,4 @@ public class EffectsModule : MonoBehaviour
         topThrusters.SetActive(direction.y < 0);
         bottomThrusters.SetActive(direction.y > 0);
     }
-
 }

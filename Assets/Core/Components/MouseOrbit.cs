@@ -103,7 +103,6 @@ public class MouseOrbit : MonoBehaviour
                 spinUnlocked = true;
             }
 
-
             if (spinUnlocked)
             {
                 x += Input.GetAxis("MOUSE_X") * xSpeed * 0.02f;
@@ -116,9 +115,7 @@ public class MouseOrbit : MonoBehaviour
             currentRotation = Quaternion.Lerp(currentRotation, wantedRotation, dampening);
 
             wantedDistance = Mathf.Clamp(wantedDistance - Input.GetAxis("MOUSE_Z") * zSpeed, distanceMin, distanceMax);
-
             currentDistance = Mathf.Lerp(currentDistance, wantedDistance, zoomSpeed);
-
 
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -currentDistance);
 

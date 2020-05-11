@@ -99,7 +99,7 @@ namespace Core.Modules
                     hitPoint = hit.point;
                     foreach (TurretController tc in weapons)
                     {
-                        tc.SetTargetPoint(hitPoint);
+                        tc.SetTargetPoint(hitPoint + mainCamera.transform.position);
                     }
                 }
                 else
@@ -107,7 +107,7 @@ namespace Core.Modules
                     hitPoint = mainCamera.transform.forward * 500;
                     foreach (TurretController tc in weapons)
                     {
-                        tc.SetTargetPoint(hitPoint);
+                        tc.SetTargetPoint(hitPoint + mainCamera.transform.position);
                     }
                 }
             }

@@ -1077,5 +1077,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: defenseModifiers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: modifiers.mobility.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: baseStats.mobility.thrust
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: _baseStats.mobility.thrust
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: _baseStats.mobility.torque
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: modifiers.mobility.Array.data[0].bonus.thrust
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877206130046145555, guid: 5d92811dca31b2149b47afa6ee701422,
+        type: 3}
+      propertyPath: modifiers.mobility.Array.data[0].bonus.torque
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d92811dca31b2149b47afa6ee701422, type: 3}

@@ -7,19 +7,19 @@ public class MobilityModule : MonoBehaviour
 {
     #region Cache
     private CoreModule core;
-    private Rigidbody rb;
-    private Vector3 direction;
-    private float rotation;
+    private Vector3 direction = new Vector3();
+    private float rotation = 0.0f;
     #endregion
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     private void FixedUpdate()
     {
-        rb.AddRelativeForce(direction);
+        Move();
+    }
+
+    private void Move()
+    {
+        core.rb.AddRelativeForce(direction * core.currentStats.mobility.thrust);
+        core.rb.AddRelativeTorque(new Vector3(0, rotation * core.currentStats.mobility.torque, 0));
     }
 
     public void SetCoreModule(CoreModule c)
@@ -29,7 +29,7 @@ public class MobilityModule : MonoBehaviour
 
     public void SetVectors(Vector3 d, float r)
     {
-        direction = new Vector3(0, d.y, d.z);
+        direction = d;
         rotation = r;
     }
 }

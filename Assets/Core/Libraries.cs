@@ -94,30 +94,77 @@ namespace Core.Data
             return newShip;
         }
         #endregion
-        #region Weapons
+        #region Equipment
         [System.Serializable]
-        public struct Weapon
+        public struct Equipment
         {
             public WeaponSize size;
             public string prefab;
 
-            public Weapon(WeaponSize s, string p)
+            public Equipment(WeaponSize s, string p)
             {
                 size = s;
                 prefab = p;
             }
         }
-        public static readonly Dictionary<string, Weapon> WeaponLibrary = new Dictionary<string, Weapon>
+        public static readonly Dictionary<string, Equipment> PrimaryWeaponLibrary = new Dictionary<string, Equipment>
         {
-            {"cannon", new Weapon(WeaponSize.Small, "cannon")}
+            {"small_cannon", new Equipment(WeaponSize.Small, "cannon")},
+            {"medium_cannon", new Equipment(WeaponSize.Medium, "cannon")}
         };
-        public static GameObject GetWeaponPrefab(string id)
+        public static readonly Dictionary<string, Equipment> SecondaryWeaponLibrary = new Dictionary<string, Equipment>
         {
-            GameObject newWeapon;
-            string weaponPrefab = WeaponLibrary[id].prefab;
-            newWeapon = (GameObject)Resources.Load(Constants.WeaponPrefabLocation + weaponPrefab);
 
-            return newWeapon;
+        };
+        public static GameObject GetPrimaryWeaponPrefab(string id)
+        {
+            if (id != "" && id != null)
+            {
+                if (PrimaryWeaponLibrary.ContainsKey(id))
+                {
+                    GameObject newWeapon = new GameObject();
+                    string weaponPrefab = PrimaryWeaponLibrary[id].prefab;
+                    try
+                    {
+                        newWeapon = (GameObject)Resources.Load(Constants.WeaponPrefabLocation + weaponPrefab);
+                    }
+                    catch
+                    {
+                        Notify.Notify.Error("No prefab found with name '" + id + "'");
+                    }
+                    return newWeapon;
+                }
+                else
+                {
+                    Notify.Notify.Error("No definition for '" + id + "' found in PrimaryWeaponLibrary");
+                }
+            }
+            return null;
+        }
+        public static GameObject GetSecondaryWeaponPrefab(string id)
+        {
+            if (id != "" && id != null)
+            {
+                if (SecondaryWeaponLibrary.ContainsKey(id))
+                {
+                    GameObject newWeapon = new GameObject();
+                    string weaponPrefab = SecondaryWeaponLibrary[id].prefab;
+                    try
+                    {
+                        newWeapon = (GameObject)Resources.Load(Constants.WeaponPrefabLocation + weaponPrefab);
+                    }
+                    catch
+                    {
+                        Notify.Notify.Error("No prefab found with name '" + id + "'");
+                    }
+                    return newWeapon;
+                }
+                else
+                {
+                    Notify.Notify.Error("No definition for '" + id + "' found in SecondaryWeaponLibrary");
+                }
+            }
+            return null;
         }
         #endregion
     }

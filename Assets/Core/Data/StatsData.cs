@@ -225,13 +225,15 @@ namespace Core.Data.Stats
         #region Fields
         public float mass;
         public float thrust;
+        public float torque;
         public float warp;
         #endregion
         #region Constructors
-        public Mobility(float m, float t, float w)
+        public Mobility(float m, float t, float q, float w)
         {
             mass = m;
             thrust = t;
+            torque = q;
             warp = w;
         }
         #endregion
@@ -241,6 +243,7 @@ namespace Core.Data.Stats
             Mobility c = new Mobility();
             c.mass = a.mass + b.mass;
             c.thrust = a.thrust + b.thrust;
+            c.torque = a.torque + b.torque;
             c.warp = a.warp + b.warp;
             return c;
         }
@@ -249,6 +252,7 @@ namespace Core.Data.Stats
             Mobility c = new Mobility();
             c.mass = a.mass - b.mass;
             c.thrust = a.thrust - b.thrust;
+            c.torque = a.torque - b.torque;
             c.warp = a.warp - b.warp;
             return c;
         }
@@ -257,6 +261,7 @@ namespace Core.Data.Stats
             Mobility c = new Mobility();
             c.mass = a.mass * b.mass;
             c.thrust = a.thrust * b.thrust;
+            c.torque = a.torque * b.torque;
             c.warp = a.warp * b.warp;
             return c;
         }
@@ -265,6 +270,7 @@ namespace Core.Data.Stats
             Mobility c = new Mobility();
             c.mass = a.mass / b.mass;
             c.thrust = a.thrust / b.thrust;
+            c.torque = a.torque / b.torque;
             c.warp = a.warp / b.warp;
             return c;
         }
@@ -313,10 +319,13 @@ namespace Core.Data.Stats
 
     #region Stat Modifiers
     [Serializable]
-    public enum ModifierType
+    public struct ModifierSet
     {
-        Flat,
-        Percentage
+        public DefenseModifier[] defense;
+        public OffenseModifier[] offense;
+        public PowerModifier[] power;
+        public MobilityModifier[] mobility;
+        public CargoModifier[] cargo;
     }
     [Serializable]
     public struct DefenseModifier
@@ -347,6 +356,12 @@ namespace Core.Data.Stats
     {
         public ModifierType type;
         public Cargo bonus;
+    }
+    [Serializable]
+    public enum ModifierType
+    {
+        Flat,
+        Percentage
     }
     #endregion
 }
